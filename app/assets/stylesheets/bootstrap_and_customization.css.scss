@@ -1,0 +1,44 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+
+.message-outbound {
+  width: 45%;
+  float: right;
+}
+
+.message-inbound {
+  width: 45%;
+  float: left;
+}
+
+.h3-custom {
+  font-size: 1.2em;
+  margin-top: 0;
+  margin-bottom: 5px;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.dark-text{
+  color: #403e3e;
+}
+
+.italic{
+  font-style: italic;
+}
+
+.follow_up1{
+  padding-left: 40px;
+}
+
+.follow_up2{
+  padding-left: 60px;
+}
+
+.custom-margin{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}

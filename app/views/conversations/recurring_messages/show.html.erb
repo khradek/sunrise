@@ -1,0 +1,77 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @recurring_message.end_date %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @recurring_message.start_date %>
+</p>
+
+<p>
+  <strong>Frequency:</strong>
+  <%= @recurring_message.frequency %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @recurring_message.body %>
+</p>
+
+<p>
+  <strong>To:</strong>
+  <%= @conversation.patient.name %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @recurring_message.user_id %>
+</p>
+
+<p>
+  <strong>Conversation:</strong>
+  <%= @recurring_message.conversation_id %>
+</p>
+
+
+
+<div class="media">
+  <div class="media-body">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Body</th>
+          <th>Reference #</th>
+          <th>Yes Ref</th>
+          <th>No Ref</th>
+          <th>One Ref</th>
+          <th>Two Ref</th>
+          <th>Three Ref</th>
+          <th>Four Ref</th>
+          <th>Five Ref</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <% @follow_ups.each do |fu| %>
+          <tr>
+            <td><%= fu.body %></td>
+            <td><%= fu.reference_number %></td>
+            <td><%= fu.yes_message_ref %></td>
+            <td><%= fu.no_message_ref %></td>
+            <td><%= fu.one_message_ref %></td>
+            <td><%= fu.two_message_ref %></td>
+            <td><%= fu.three_message_ref %></td>
+            <td><%= fu.four_message_ref %></td>
+            <td><%= fu.five_message_ref %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+

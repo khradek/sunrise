@@ -1,0 +1,1803 @@
+<%= form_for [@conversation, @recurring_message] do |f| %>
+  <% if recurring_message.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(recurring_message.errors.count, "error") %> prohibited this recurring_message from being saved:</h2>
+
+      <ul>
+      <% recurring_message.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :start_date %>
+    <%= f.date_select :start_date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :time %>
+    <%= f.time_select :start_date, {ampm: true, minute_step: 5, ignore_date: true} %>
+  </div>
+
+  <br>
+
+  <div class="field">
+    <%= f.label :end_date %>
+    <%= f.date_select :end_date, :discard_year => true %>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="form-group">
+        <%= f.label :frequency %>
+        <%= f.select(:frequency, options_for_select([['Daily', 'Daily'], ['Every Other Day', 'Every Other Day'], ['Weekly', 'Weekly']]), {}, {class: "form-control"}) %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="form-group">
+        <%= f.label :body %>
+        <%= f.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="form-group">
+        <%= f.label :expect_response, 'Auto Responses' %>
+        <%= f.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['Positive/Negative Sentiment', 'Sentiment'], ['1 thru 5', '1 thru 5'], ['Custom', 'Custom']]), {}, {class: "form-control", id: "response_select_1"}) %>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="follow_up1">
+
+    <div id="follow_up_1_yes_no">  
+      <h4>If Yes</h4>
+      <%= f.fields_for :follow_ups do |u| %>
+        <div class="row">
+          <div class="col-xs-6">
+            <div claus="form-group">
+              <%= u.label :body %>
+              <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <div claus="form-group">
+              <%= u.label :expect_response, 'Auto Responses' %>
+              <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control", id: "response_select_2_0"}) %>
+            </div>
+          </div>
+        </div>
+        <%= u.hidden_field :reference_number, :value => 1 %> 
+        <%= u.hidden_field :yes_message_ref, :value => 8 %> 
+        <%= u.hidden_field :no_message_ref, :value => 9 %>
+        <%= u.hidden_field :one_message_ref, :value => 10 %>
+        <%= u.hidden_field :two_message_ref, :value => 11 %>
+        <%= u.hidden_field :three_message_ref, :value => 12 %>
+        <%= u.hidden_field :four_message_ref, :value => 13 %>
+        <%= u.hidden_field :five_message_ref, :value => 14 %>
+      <% end %>
+
+      <div class="follow_up2">
+
+        <div id="follow_up_2_0_yes_no">  
+          <h4>If Yes</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 8 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 57 %> 
+            <%= u.hidden_field :no_message_ref, :value => 58 %>
+            <%= u.hidden_field :one_message_ref, :value => 59 %>
+            <%= u.hidden_field :two_message_ref, :value => 60 %>
+            <%= u.hidden_field :three_message_ref, :value => 61 %>
+            <%= u.hidden_field :four_message_ref, :value => 62 %>
+            <%= u.hidden_field :five_message_ref, :value => 63 %>
+          <% end %>
+
+          <h4>If No</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 9 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 64 %> 
+            <%= u.hidden_field :no_message_ref, :value => 65 %>
+            <%= u.hidden_field :one_message_ref, :value => 66 %>
+            <%= u.hidden_field :two_message_ref, :value => 67 %>
+            <%= u.hidden_field :three_message_ref, :value => 68 %>
+            <%= u.hidden_field :four_message_ref, :value => 69 %>
+            <%= u.hidden_field :five_message_ref, :value => 70 %>            
+          <% end %>
+        </div>
+
+
+        <div id="follow_up_2_0_1_thru_5">
+
+          <h4>If <span class="if-number">1</span><span class="if-custom-form"><%= f.text_field :body, class: "form-control" %></span></h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 10 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 71 %> 
+            <%= u.hidden_field :no_message_ref, :value => 72 %>
+            <%= u.hidden_field :one_message_ref, :value => 73 %>
+            <%= u.hidden_field :two_message_ref, :value => 74 %>
+            <%= u.hidden_field :three_message_ref, :value => 75 %>
+            <%= u.hidden_field :four_message_ref, :value => 76 %>
+            <%= u.hidden_field :five_message_ref, :value => 77 %> 
+          <% end %>
+
+          <h4>If 2</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div> 
+            <%= u.hidden_field :reference_number, :value => 11 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 78 %> 
+            <%= u.hidden_field :no_message_ref, :value => 79 %>
+            <%= u.hidden_field :one_message_ref, :value => 80 %>
+            <%= u.hidden_field :two_message_ref, :value => 81 %>
+            <%= u.hidden_field :three_message_ref, :value => 82 %>
+            <%= u.hidden_field :four_message_ref, :value => 83 %>
+            <%= u.hidden_field :five_message_ref, :value => 84 %>     
+          <% end %> 
+
+          <h4>If 3</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 12 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 85 %> 
+            <%= u.hidden_field :no_message_ref, :value => 86 %>
+            <%= u.hidden_field :one_message_ref, :value => 87 %>
+            <%= u.hidden_field :two_message_ref, :value => 88 %>
+            <%= u.hidden_field :three_message_ref, :value => 89 %>
+            <%= u.hidden_field :four_message_ref, :value => 90 %>
+            <%= u.hidden_field :five_message_ref, :value => 91 %>  
+          <% end %>
+
+          <h4>If 4</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 13 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 92 %> 
+            <%= u.hidden_field :no_message_ref, :value => 93 %>
+            <%= u.hidden_field :one_message_ref, :value => 94 %>
+            <%= u.hidden_field :two_message_ref, :value => 95 %>
+            <%= u.hidden_field :three_message_ref, :value => 96 %>
+            <%= u.hidden_field :four_message_ref, :value => 97 %>
+            <%= u.hidden_field :five_message_ref, :value => 98 %> 
+          <% end %>
+
+          <h4>If 5</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 14 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 99 %> 
+            <%= u.hidden_field :no_message_ref, :value => 100 %>
+            <%= u.hidden_field :one_message_ref, :value => 101 %>
+            <%= u.hidden_field :two_message_ref, :value => 102 %>
+            <%= u.hidden_field :three_message_ref, :value => 103 %>
+            <%= u.hidden_field :four_message_ref, :value => 104 %>
+            <%= u.hidden_field :five_message_ref, :value => 105 %>             
+          <% end %>
+
+        </div><!-- close follow_up_2_0_1_thru_5 -->
+
+      </div><!-- close follow_up2 --> 
+
+      <h4>If No</h4>
+      <%= f.fields_for :follow_ups do |u| %>
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <%= u.label :body %>
+              <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <%= u.label :expect_response, 'Auto Responses' %>
+              <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control", id: "response_select_2_1"}) %>
+            </div>
+          </div>
+        </div>
+        <%= u.hidden_field :reference_number, :value => 2 %> 
+        <%= u.hidden_field :yes_message_ref, :value => 15 %> 
+        <%= u.hidden_field :no_message_ref, :value => 16 %>
+        <%= u.hidden_field :one_message_ref, :value => 17 %>
+        <%= u.hidden_field :two_message_ref, :value => 18 %>
+        <%= u.hidden_field :three_message_ref, :value => 19 %>
+        <%= u.hidden_field :four_message_ref, :value => 20 %>
+        <%= u.hidden_field :five_message_ref, :value => 21 %>
+      <% end %>
+
+      <div class="follow_up2">
+
+        <div id="follow_up_2_1_yes_no">  
+          <h4>If Yes</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 15 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 106 %> 
+            <%= u.hidden_field :no_message_ref, :value => 107 %>
+            <%= u.hidden_field :one_message_ref, :value => 108 %>
+            <%= u.hidden_field :two_message_ref, :value => 109 %>
+            <%= u.hidden_field :three_message_ref, :value => 110 %>
+            <%= u.hidden_field :four_message_ref, :value => 111 %>
+            <%= u.hidden_field :five_message_ref, :value => 112 %>   
+          <% end %>
+
+          <h4>If No</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 16 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 113 %> 
+            <%= u.hidden_field :no_message_ref, :value => 114 %>
+            <%= u.hidden_field :one_message_ref, :value => 115 %>
+            <%= u.hidden_field :two_message_ref, :value => 116 %>
+            <%= u.hidden_field :three_message_ref, :value => 117 %>
+            <%= u.hidden_field :four_message_ref, :value => 118 %>
+            <%= u.hidden_field :five_message_ref, :value => 119 %> 
+          <% end %>
+        </div>
+
+
+        <div id="follow_up_2_1_1_thru_5">
+          <h4>If 1</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 17 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 120 %> 
+            <%= u.hidden_field :no_message_ref, :value => 121 %>
+            <%= u.hidden_field :one_message_ref, :value => 122 %>
+            <%= u.hidden_field :two_message_ref, :value => 123 %>
+            <%= u.hidden_field :three_message_ref, :value => 124 %>
+            <%= u.hidden_field :four_message_ref, :value => 125 %>
+            <%= u.hidden_field :five_message_ref, :value => 126 %> 
+          <% end %>
+
+          <h4>If 2</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div> 
+            <%= u.hidden_field :reference_number, :value => 18 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 127 %> 
+            <%= u.hidden_field :no_message_ref, :value => 128 %>
+            <%= u.hidden_field :one_message_ref, :value => 129 %>
+            <%= u.hidden_field :two_message_ref, :value => 130 %>
+            <%= u.hidden_field :three_message_ref, :value => 131 %>
+            <%= u.hidden_field :four_message_ref, :value => 132 %>
+            <%= u.hidden_field :five_message_ref, :value => 133 %>                
+          <% end %> 
+
+          <h4>If 3</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 19 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 134 %> 
+            <%= u.hidden_field :no_message_ref, :value => 135 %>
+            <%= u.hidden_field :one_message_ref, :value => 136 %>
+            <%= u.hidden_field :two_message_ref, :value => 137 %>
+            <%= u.hidden_field :three_message_ref, :value => 138 %>
+            <%= u.hidden_field :four_message_ref, :value => 139 %>
+            <%= u.hidden_field :five_message_ref, :value => 140 %>             
+          <% end %>
+
+          <h4>If 4</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 20 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 141 %> 
+            <%= u.hidden_field :no_message_ref, :value => 142 %>
+            <%= u.hidden_field :one_message_ref, :value => 143 %>
+            <%= u.hidden_field :two_message_ref, :value => 144 %>
+            <%= u.hidden_field :three_message_ref, :value => 145 %>
+            <%= u.hidden_field :four_message_ref, :value => 146 %>
+            <%= u.hidden_field :five_message_ref, :value => 147 %>            
+          <% end %>
+
+          <h4>If 5</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 21 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 148 %> 
+            <%= u.hidden_field :no_message_ref, :value => 149 %>
+            <%= u.hidden_field :one_message_ref, :value => 150 %>
+            <%= u.hidden_field :two_message_ref, :value => 151 %>
+            <%= u.hidden_field :three_message_ref, :value => 152 %>
+            <%= u.hidden_field :four_message_ref, :value => 153 %>
+            <%= u.hidden_field :five_message_ref, :value => 154 %>             
+          <% end %>
+        </div>
+      </div><!-- close follow_up2 -->
+
+    </div><!-- close follow_up_1_yes_no -->
+
+
+    <div id="follow_up_1_1_thru_5">
+      
+      <h4 class="if-number">If 1</h4>
+      <div class="row custom-if">
+        <div class="col-xs-6">
+          <div class="input-group custom-margin">
+            <span class="input-group-addon"><strong>If</strong></span>
+            <%= f.text_field :body, class: "form-control", placeholder: 'Enter expected response here' %>
+          </div>
+        </div>
+      </div>  
+      <%= f.fields_for :follow_ups do |u| %>
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <%= u.label :body %>
+              <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <%= u.label :expect_response, 'Auto Responses' %>
+              <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control", id: "response_select_2_2"}) %>
+            </div>
+          </div>
+        </div>
+        <%= u.hidden_field :reference_number, :value => 3 %> 
+        <%= u.hidden_field :yes_message_ref, :value => 22 %> 
+        <%= u.hidden_field :no_message_ref, :value => 23 %>
+        <%= u.hidden_field :one_message_ref, :value => 24 %>
+        <%= u.hidden_field :two_message_ref, :value => 25 %>
+        <%= u.hidden_field :three_message_ref, :value => 26 %>
+        <%= u.hidden_field :four_message_ref, :value => 27 %>
+        <%= u.hidden_field :five_message_ref, :value => 28 %>        
+      <% end %>
+
+      <div class="follow_up2">
+
+        <div id="follow_up_2_2_yes_no">  
+          <h4>If Yes</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 22 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 155 %> 
+            <%= u.hidden_field :no_message_ref, :value => 156 %>
+            <%= u.hidden_field :one_message_ref, :value => 157 %>
+            <%= u.hidden_field :two_message_ref, :value => 158 %>
+            <%= u.hidden_field :three_message_ref, :value => 159 %>
+            <%= u.hidden_field :four_message_ref, :value => 160 %>
+            <%= u.hidden_field :five_message_ref, :value => 161 %> 
+          <% end %>
+
+          <h4>If No</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 23 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 162 %> 
+            <%= u.hidden_field :no_message_ref, :value => 163 %>
+            <%= u.hidden_field :one_message_ref, :value => 164 %>
+            <%= u.hidden_field :two_message_ref, :value => 165 %>
+            <%= u.hidden_field :three_message_ref, :value => 166 %>
+            <%= u.hidden_field :four_message_ref, :value => 167 %>
+            <%= u.hidden_field :five_message_ref, :value => 168 %>             
+          <% end %>
+        </div>
+
+
+        <div id="follow_up_2_2_1_thru_5">
+          <h4>If 1</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 24 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 169 %> 
+            <%= u.hidden_field :no_message_ref, :value => 170 %>
+            <%= u.hidden_field :one_message_ref, :value => 171 %>
+            <%= u.hidden_field :two_message_ref, :value => 172 %>
+            <%= u.hidden_field :three_message_ref, :value => 173 %>
+            <%= u.hidden_field :four_message_ref, :value => 174 %>
+            <%= u.hidden_field :five_message_ref, :value => 175 %>             
+          <% end %>
+
+          <h4>If 2</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div> 
+            <%= u.hidden_field :reference_number, :value => 25 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 176 %> 
+            <%= u.hidden_field :no_message_ref, :value => 177 %>
+            <%= u.hidden_field :one_message_ref, :value => 178 %>
+            <%= u.hidden_field :two_message_ref, :value => 179 %>
+            <%= u.hidden_field :three_message_ref, :value => 180 %>
+            <%= u.hidden_field :four_message_ref, :value => 181 %>
+            <%= u.hidden_field :five_message_ref, :value => 182 %>                  
+          <% end %> 
+
+          <h4>If 3</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 26 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 183 %> 
+            <%= u.hidden_field :no_message_ref, :value => 184 %>
+            <%= u.hidden_field :one_message_ref, :value => 185 %>
+            <%= u.hidden_field :two_message_ref, :value => 186 %>
+            <%= u.hidden_field :three_message_ref, :value => 187 %>
+            <%= u.hidden_field :four_message_ref, :value => 188 %>
+            <%= u.hidden_field :five_message_ref, :value => 189 %>              
+          <% end %>
+
+          <h4>If 4</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 27 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 190 %> 
+            <%= u.hidden_field :no_message_ref, :value => 191 %>
+            <%= u.hidden_field :one_message_ref, :value => 192 %>
+            <%= u.hidden_field :two_message_ref, :value => 193 %>
+            <%= u.hidden_field :three_message_ref, :value => 194 %>
+            <%= u.hidden_field :four_message_ref, :value => 195 %>
+            <%= u.hidden_field :five_message_ref, :value => 196 %>            
+          <% end %>
+
+          <h4>If 5</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 28 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 197 %> 
+            <%= u.hidden_field :no_message_ref, :value => 198 %>
+            <%= u.hidden_field :one_message_ref, :value => 199 %>
+            <%= u.hidden_field :two_message_ref, :value => 200 %>
+            <%= u.hidden_field :three_message_ref, :value => 201 %>
+            <%= u.hidden_field :four_message_ref, :value => 202 %>
+            <%= u.hidden_field :five_message_ref, :value => 203 %>             
+          <% end %>
+        </div>
+      </div><!-- close follow_up2 -->
+
+      <h4 class="if-number">If 2</h4>
+      <div class="row custom-if">
+        <div class="col-xs-6">
+          <div class="input-group custom-margin">
+            <span class="input-group-addon"><strong>If</strong></span>
+            <%= f.text_field :body, class: "form-control", placeholder: 'Enter expected response here' %>
+          </div>
+        </div>
+      </div>  
+      <%= f.fields_for :follow_ups do |u| %>
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <%= u.label :body %>
+              <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <%= u.label :expect_response, 'Auto Responses' %>
+              <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control", id: "response_select_2_3"}) %>
+            </div>
+          </div>
+        </div> 
+        <%= u.hidden_field :reference_number, :value => 4 %> 
+        <%= u.hidden_field :yes_message_ref, :value => 29 %> 
+        <%= u.hidden_field :no_message_ref, :value => 30 %>
+        <%= u.hidden_field :one_message_ref, :value => 31 %>
+        <%= u.hidden_field :two_message_ref, :value => 32 %>
+        <%= u.hidden_field :three_message_ref, :value => 33 %>
+        <%= u.hidden_field :four_message_ref, :value => 34 %>
+        <%= u.hidden_field :five_message_ref, :value => 35 %>             
+      <% end %> 
+
+      <div class="follow_up2">
+
+        <div id="follow_up_2_3_yes_no">  
+          <h4>If Yes</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 29 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 204 %> 
+            <%= u.hidden_field :no_message_ref, :value => 205 %>
+            <%= u.hidden_field :one_message_ref, :value => 206 %>
+            <%= u.hidden_field :two_message_ref, :value => 207 %>
+            <%= u.hidden_field :three_message_ref, :value => 208 %>
+            <%= u.hidden_field :four_message_ref, :value => 209 %>
+            <%= u.hidden_field :five_message_ref, :value => 210 %>             
+          <% end %>
+
+          <h4>If No</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 30 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 211 %> 
+            <%= u.hidden_field :no_message_ref, :value => 212 %>
+            <%= u.hidden_field :one_message_ref, :value => 213 %>
+            <%= u.hidden_field :two_message_ref, :value => 214 %>
+            <%= u.hidden_field :three_message_ref, :value => 215 %>
+            <%= u.hidden_field :four_message_ref, :value => 216 %>
+            <%= u.hidden_field :five_message_ref, :value => 217 %>             
+          <% end %>
+        </div>
+
+
+        <div id="follow_up_2_3_1_thru_5">
+          <h4>If 1</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 31 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 218 %> 
+            <%= u.hidden_field :no_message_ref, :value => 219 %>
+            <%= u.hidden_field :one_message_ref, :value => 220 %>
+            <%= u.hidden_field :two_message_ref, :value => 221 %>
+            <%= u.hidden_field :three_message_ref, :value => 222 %>
+            <%= u.hidden_field :four_message_ref, :value => 223 %>
+            <%= u.hidden_field :five_message_ref, :value => 224 %>             
+          <% end %>
+
+          <h4>If 2</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div> 
+            <%= u.hidden_field :reference_number, :value => 32 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 225 %> 
+            <%= u.hidden_field :no_message_ref, :value => 226 %>
+            <%= u.hidden_field :one_message_ref, :value => 227 %>
+            <%= u.hidden_field :two_message_ref, :value => 228 %>
+            <%= u.hidden_field :three_message_ref, :value => 229 %>
+            <%= u.hidden_field :four_message_ref, :value => 230 %>
+            <%= u.hidden_field :five_message_ref, :value => 231 %>                 
+          <% end %> 
+
+          <h4>If 3</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 33 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 232 %> 
+            <%= u.hidden_field :no_message_ref, :value => 233 %>
+            <%= u.hidden_field :one_message_ref, :value => 234 %>
+            <%= u.hidden_field :two_message_ref, :value => 235 %>
+            <%= u.hidden_field :three_message_ref, :value => 236 %>
+            <%= u.hidden_field :four_message_ref, :value => 237 %>
+            <%= u.hidden_field :five_message_ref, :value => 238 %>            
+          <% end %>
+
+          <h4>If 4</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 34 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 239 %> 
+            <%= u.hidden_field :no_message_ref, :value => 240 %>
+            <%= u.hidden_field :one_message_ref, :value => 241 %>
+            <%= u.hidden_field :two_message_ref, :value => 242 %>
+            <%= u.hidden_field :three_message_ref, :value => 243 %>
+            <%= u.hidden_field :four_message_ref, :value => 244 %>
+            <%= u.hidden_field :five_message_ref, :value => 245 %>             
+          <% end %>
+
+          <h4>If 5</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 35 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 246 %> 
+            <%= u.hidden_field :no_message_ref, :value => 247 %>
+            <%= u.hidden_field :one_message_ref, :value => 248 %>
+            <%= u.hidden_field :two_message_ref, :value => 249 %>
+            <%= u.hidden_field :three_message_ref, :value => 250 %>
+            <%= u.hidden_field :four_message_ref, :value => 251 %>
+            <%= u.hidden_field :five_message_ref, :value => 252 %>            
+          <% end %>
+        </div>
+      </div><!-- close follow_up2 -->
+
+      <h4 class="if-number">If 3</h4>
+      <div class="row custom-if">
+        <div class="col-xs-6">
+          <div class="input-group custom-margin">
+            <span class="input-group-addon"><strong>If</strong></span>
+            <%= f.text_field :body, class: "form-control", placeholder: 'Enter expected response here' %>
+          </div>
+        </div>
+      </div>  
+      <%= f.fields_for :follow_ups do |u| %>
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <%= u.label :body %>
+              <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <%= u.label :expect_response, 'Auto Responses' %>
+              <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control", id: "response_select_2_4"}) %>
+            </div>
+          </div>
+        </div>
+        <%= u.hidden_field :reference_number, :value => 5 %> 
+        <%= u.hidden_field :yes_message_ref, :value => 36 %> 
+        <%= u.hidden_field :no_message_ref, :value => 37 %>
+        <%= u.hidden_field :one_message_ref, :value => 38 %>
+        <%= u.hidden_field :two_message_ref, :value => 39 %>
+        <%= u.hidden_field :three_message_ref, :value => 40 %>
+        <%= u.hidden_field :four_message_ref, :value => 41 %>
+        <%= u.hidden_field :five_message_ref, :value => 42 %>        
+      <% end %>
+
+      <div class="follow_up2">
+
+        <div id="follow_up_2_4_yes_no">  
+          <h4>If Yes</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 36 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 253 %> 
+            <%= u.hidden_field :no_message_ref, :value => 254 %>
+            <%= u.hidden_field :one_message_ref, :value => 255 %>
+            <%= u.hidden_field :two_message_ref, :value => 256 %>
+            <%= u.hidden_field :three_message_ref, :value => 257 %>
+            <%= u.hidden_field :four_message_ref, :value => 258 %>
+            <%= u.hidden_field :five_message_ref, :value => 259 %>            
+          <% end %>
+
+          <h4>If No</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 37 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 260 %> 
+            <%= u.hidden_field :no_message_ref, :value => 261 %>
+            <%= u.hidden_field :one_message_ref, :value => 262 %>
+            <%= u.hidden_field :two_message_ref, :value => 263 %>
+            <%= u.hidden_field :three_message_ref, :value => 264 %>
+            <%= u.hidden_field :four_message_ref, :value => 265 %>
+            <%= u.hidden_field :five_message_ref, :value => 266 %>             
+          <% end %>
+        </div>
+
+
+        <div id="follow_up_2_4_1_thru_5">
+          <h4>If 1</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 38 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 267 %> 
+            <%= u.hidden_field :no_message_ref, :value => 268 %>
+            <%= u.hidden_field :one_message_ref, :value => 269 %>
+            <%= u.hidden_field :two_message_ref, :value => 270 %>
+            <%= u.hidden_field :three_message_ref, :value => 271 %>
+            <%= u.hidden_field :four_message_ref, :value => 272 %>
+            <%= u.hidden_field :five_message_ref, :value => 273 %>             
+          <% end %>
+
+          <h4>If 2</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div> 
+            <%= u.hidden_field :reference_number, :value => 39 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 274 %> 
+            <%= u.hidden_field :no_message_ref, :value => 275 %>
+            <%= u.hidden_field :one_message_ref, :value => 276 %>
+            <%= u.hidden_field :two_message_ref, :value => 277 %>
+            <%= u.hidden_field :three_message_ref, :value => 278 %>
+            <%= u.hidden_field :four_message_ref, :value => 279 %>
+            <%= u.hidden_field :five_message_ref, :value => 280 %>                
+          <% end %> 
+
+          <h4>If 3</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 40 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 281 %> 
+            <%= u.hidden_field :no_message_ref, :value => 282 %>
+            <%= u.hidden_field :one_message_ref, :value => 283 %>
+            <%= u.hidden_field :two_message_ref, :value => 284 %>
+            <%= u.hidden_field :three_message_ref, :value => 285 %>
+            <%= u.hidden_field :four_message_ref, :value => 286 %>
+            <%= u.hidden_field :five_message_ref, :value => 287 %>             
+          <% end %>
+
+          <h4>If 4</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 41 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 288 %> 
+            <%= u.hidden_field :no_message_ref, :value => 289 %>
+            <%= u.hidden_field :one_message_ref, :value => 290 %>
+            <%= u.hidden_field :two_message_ref, :value => 291 %>
+            <%= u.hidden_field :three_message_ref, :value => 292 %>
+            <%= u.hidden_field :four_message_ref, :value => 293 %>
+            <%= u.hidden_field :five_message_ref, :value => 294 %>             
+          <% end %>
+
+          <h4>If 5</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 42 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 295 %> 
+            <%= u.hidden_field :no_message_ref, :value => 296 %>
+            <%= u.hidden_field :one_message_ref, :value => 297 %>
+            <%= u.hidden_field :two_message_ref, :value => 298 %>
+            <%= u.hidden_field :three_message_ref, :value => 299 %>
+            <%= u.hidden_field :four_message_ref, :value => 300 %>
+            <%= u.hidden_field :five_message_ref, :value => 301 %>             
+          <% end %>
+        </div>
+      </div><!-- close follow_up2 -->
+
+      <h4 class="if-number">If 4</h4>
+      <div class="row custom-if">
+        <div class="col-xs-6">
+          <div class="input-group custom-margin">
+            <span class="input-group-addon"><strong>If</strong></span>
+            <%= f.text_field :body, class: "form-control", placeholder: 'Enter expected response here' %>
+          </div>
+        </div>
+      </div>  
+      <%= f.fields_for :follow_ups do |u| %>
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <%= u.label :body %>
+              <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <%= u.label :expect_response, 'Auto Responses' %>
+              <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control", id: "response_select_2_5"}) %>
+            </div>
+          </div>
+        </div>
+        <%= u.hidden_field :reference_number, :value => 6 %> 
+        <%= u.hidden_field :yes_message_ref, :value => 43 %> 
+        <%= u.hidden_field :no_message_ref, :value => 44 %>
+        <%= u.hidden_field :one_message_ref, :value => 45 %>
+        <%= u.hidden_field :two_message_ref, :value => 46 %>
+        <%= u.hidden_field :three_message_ref, :value => 47 %>
+        <%= u.hidden_field :four_message_ref, :value => 48 %>
+        <%= u.hidden_field :five_message_ref, :value => 49 %>        
+      <% end %>
+
+      <div class="follow_up2">
+
+        <div id="follow_up_2_5_yes_no">  
+          <h4>If Yes</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 43 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 302 %> 
+            <%= u.hidden_field :no_message_ref, :value => 303 %>
+            <%= u.hidden_field :one_message_ref, :value => 304 %>
+            <%= u.hidden_field :two_message_ref, :value => 305 %>
+            <%= u.hidden_field :three_message_ref, :value => 306 %>
+            <%= u.hidden_field :four_message_ref, :value => 307 %>
+            <%= u.hidden_field :five_message_ref, :value => 308 %>            
+          <% end %>
+
+          <h4>If No</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 44 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 309 %> 
+            <%= u.hidden_field :no_message_ref, :value => 310 %>
+            <%= u.hidden_field :one_message_ref, :value => 311 %>
+            <%= u.hidden_field :two_message_ref, :value => 312 %>
+            <%= u.hidden_field :three_message_ref, :value => 313 %>
+            <%= u.hidden_field :four_message_ref, :value => 314 %>
+            <%= u.hidden_field :five_message_ref, :value => 315 %>            
+          <% end %>
+        </div>
+
+
+        <div id="follow_up_2_5_1_thru_5">
+          <h4>If 1</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 45 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 316 %> 
+            <%= u.hidden_field :no_message_ref, :value => 317 %>
+            <%= u.hidden_field :one_message_ref, :value => 318 %>
+            <%= u.hidden_field :two_message_ref, :value => 319 %>
+            <%= u.hidden_field :three_message_ref, :value => 320 %>
+            <%= u.hidden_field :four_message_ref, :value => 321 %>
+            <%= u.hidden_field :five_message_ref, :value => 322 %>            
+          <% end %>
+
+          <h4>If 2</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 46 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 323 %> 
+            <%= u.hidden_field :no_message_ref, :value => 324 %>
+            <%= u.hidden_field :one_message_ref, :value => 325 %>
+            <%= u.hidden_field :two_message_ref, :value => 326 %>
+            <%= u.hidden_field :three_message_ref, :value => 327 %>
+            <%= u.hidden_field :four_message_ref, :value => 328 %>
+            <%= u.hidden_field :five_message_ref, :value => 329 %>                  
+          <% end %> 
+
+          <h4>If 3</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 47 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 330 %> 
+            <%= u.hidden_field :no_message_ref, :value => 331 %>
+            <%= u.hidden_field :one_message_ref, :value => 332 %>
+            <%= u.hidden_field :two_message_ref, :value => 333 %>
+            <%= u.hidden_field :three_message_ref, :value => 334 %>
+            <%= u.hidden_field :four_message_ref, :value => 335 %>
+            <%= u.hidden_field :five_message_ref, :value => 336 %>             
+          <% end %>
+
+          <h4>If 4</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 48 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 337 %> 
+            <%= u.hidden_field :no_message_ref, :value => 338 %>
+            <%= u.hidden_field :one_message_ref, :value => 339 %>
+            <%= u.hidden_field :two_message_ref, :value => 340 %>
+            <%= u.hidden_field :three_message_ref, :value => 341 %>
+            <%= u.hidden_field :four_message_ref, :value => 342 %>
+            <%= u.hidden_field :five_message_ref, :value => 343 %>             
+          <% end %>
+
+          <h4>If 5</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 49 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 344 %> 
+            <%= u.hidden_field :no_message_ref, :value => 345 %>
+            <%= u.hidden_field :one_message_ref, :value => 346 %>
+            <%= u.hidden_field :two_message_ref, :value => 347 %>
+            <%= u.hidden_field :three_message_ref, :value => 348 %>
+            <%= u.hidden_field :four_message_ref, :value => 349 %>
+            <%= u.hidden_field :five_message_ref, :value => 350 %>            
+          <% end %>
+        </div>
+      </div><!-- close follow_up2 -->
+
+      <h4 class="if-number">If 5</h4>
+      <div class="row custom-if">
+        <div class="col-xs-6">
+          <div class="input-group custom-margin">
+            <span class="input-group-addon"><strong>If</strong></span>
+            <%= f.text_field :body, class: "form-control", placeholder: 'Enter expected response here' %>
+          </div>
+        </div>
+      </div>  
+      <%= f.fields_for :follow_ups do |u| %>
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <%= u.label :body %>
+              <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <%= u.label :expect_response, 'Auto Responses' %>
+              <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control", id: "response_select_2_6"}) %>
+            </div>
+          </div>
+        </div>
+        <%= u.hidden_field :reference_number, :value => 7 %> 
+        <%= u.hidden_field :yes_message_ref, :value => 50 %> 
+        <%= u.hidden_field :no_message_ref, :value => 51 %>
+        <%= u.hidden_field :one_message_ref, :value => 52 %>
+        <%= u.hidden_field :two_message_ref, :value => 53 %>
+        <%= u.hidden_field :three_message_ref, :value => 54 %>
+        <%= u.hidden_field :four_message_ref, :value => 55 %>
+        <%= u.hidden_field :five_message_ref, :value => 56 %>        
+      <% end %>
+
+      <div class="follow_up2">
+
+        <div id="follow_up_2_6_yes_no">  
+          <h4>If Yes</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 50 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 351 %> 
+            <%= u.hidden_field :no_message_ref, :value => 352 %>
+            <%= u.hidden_field :one_message_ref, :value => 353 %>
+            <%= u.hidden_field :two_message_ref, :value => 354 %>
+            <%= u.hidden_field :three_message_ref, :value => 355 %>
+            <%= u.hidden_field :four_message_ref, :value => 356 %>
+            <%= u.hidden_field :five_message_ref, :value => 357 %>            
+          <% end %>
+
+          <h4>If No</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 51 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 358 %> 
+            <%= u.hidden_field :no_message_ref, :value => 359 %>
+            <%= u.hidden_field :one_message_ref, :value => 360 %>
+            <%= u.hidden_field :two_message_ref, :value => 361 %>
+            <%= u.hidden_field :three_message_ref, :value => 362 %>
+            <%= u.hidden_field :four_message_ref, :value => 363 %>
+            <%= u.hidden_field :five_message_ref, :value => 364 %>             
+          <% end %>
+        </div>
+
+
+        <div id="follow_up_2_6_1_thru_5">
+          <h4>If 1</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 52 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 365 %> 
+            <%= u.hidden_field :no_message_ref, :value => 366 %>
+            <%= u.hidden_field :one_message_ref, :value => 367 %>
+            <%= u.hidden_field :two_message_ref, :value => 368 %>
+            <%= u.hidden_field :three_message_ref, :value => 369 %>
+            <%= u.hidden_field :four_message_ref, :value => 370 %>
+            <%= u.hidden_field :five_message_ref, :value => 371 %>             
+          <% end %>
+
+          <h4>If 2</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>  
+            <%= u.hidden_field :reference_number, :value => 53 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 372 %> 
+            <%= u.hidden_field :no_message_ref, :value => 373 %>
+            <%= u.hidden_field :one_message_ref, :value => 374 %>
+            <%= u.hidden_field :two_message_ref, :value => 375 %>
+            <%= u.hidden_field :three_message_ref, :value => 376 %>
+            <%= u.hidden_field :four_message_ref, :value => 377 %>
+            <%= u.hidden_field :five_message_ref, :value => 378 %>                
+          <% end %> 
+
+          <h4>If 3</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 54 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 379 %> 
+            <%= u.hidden_field :no_message_ref, :value => 380 %>
+            <%= u.hidden_field :one_message_ref, :value => 381 %>
+            <%= u.hidden_field :two_message_ref, :value => 382 %>
+            <%= u.hidden_field :three_message_ref, :value => 383 %>
+            <%= u.hidden_field :four_message_ref, :value => 384 %>
+            <%= u.hidden_field :five_message_ref, :value => 385 %>             
+          <% end %>
+
+          <h4>If 4</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 55 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 386 %> 
+            <%= u.hidden_field :no_message_ref, :value => 387 %>
+            <%= u.hidden_field :one_message_ref, :value => 388 %>
+            <%= u.hidden_field :two_message_ref, :value => 389 %>
+            <%= u.hidden_field :three_message_ref, :value => 390 %>
+            <%= u.hidden_field :four_message_ref, :value => 391 %>
+            <%= u.hidden_field :five_message_ref, :value => 392 %>            
+          <% end %>
+
+          <h4>If 5</h4>
+          <%= f.fields_for :follow_ups do |u| %>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :body %>
+                  <%= u.text_area :body, class: 'form-control', placeholder: 'Type message here' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= u.label :expect_response, 'Auto Responses' %>
+                  <%= u.select(:expect_response, options_for_select([['None', ''], ['Yes or No', 'Yes or No'], ['1 thru 5', '1 thru 5']]), {}, {class: "form-control"}) %>
+                </div>
+              </div>
+            </div>
+            <%= u.hidden_field :reference_number, :value => 56 %> 
+            <%= u.hidden_field :yes_message_ref, :value => 393 %> 
+            <%= u.hidden_field :no_message_ref, :value => 394 %>
+            <%= u.hidden_field :one_message_ref, :value => 395 %>
+            <%= u.hidden_field :two_message_ref, :value => 396 %>
+            <%= u.hidden_field :three_message_ref, :value => 397 %>
+            <%= u.hidden_field :four_message_ref, :value => 398 %>
+            <%= u.hidden_field :five_message_ref, :value => 399 %>            
+          <% end %>
+        </div>
+      </div><!-- close follow_up2 -->
+    </div><!-- close follow_up_1_1_thru_5 -->
+
+  </div><!-- close follow_up1 -->  
+
+  <br>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<br>
+<br>

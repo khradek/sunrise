@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  end_date: 2018-06-25 17:40:06
+  start_date: 2018-06-25 17:40:06
+  frequency: MyString
+  body: MyString
+  to: MyString
+  user: one
+  conversation: one
+
+two:
+  end_date: 2018-06-25 17:40:06
+  start_date: 2018-06-25 17:40:06
+  frequency: MyString
+  body: MyString
+  to: MyString
+  user: two
+  conversation: two

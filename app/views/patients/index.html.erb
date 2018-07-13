@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Patients</h1>
+
+<div class="media">
+  <div class="media-body">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone number</th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @patients.each do |patient| %>
+          <tr>
+            <td><%= link_to patient.name, patient %></td>
+            <td><%= number_to_phone(patient.phone_number) %></td>
+            <td><%= link_to 'Edit', edit_patient_path(patient) %></td>
+            <td><%= link_to 'Destroy', patient, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<br>
+
+<%= link_to 'New Patient', new_patient_path %>
